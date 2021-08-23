@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
+  - RotatingPlatform
+  - Stick
+  - Character
   layers:
   - Default
   - TransparentFX
