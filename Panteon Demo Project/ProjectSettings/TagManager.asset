@@ -8,6 +8,7 @@ TagManager:
   - RotatingPlatform
   - Stick
   - Character
+  - Painting Wall
   layers:
   - Default
   - TransparentFX

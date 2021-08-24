@@ -13,4 +13,10 @@ public class AIController : CharacterController
     {
         transform.position = startingPosition;
     }
+
+    public override void FinishLine()
+    {
+        base.FinishLine();
+        //AI finishs the race
+    }
 }
