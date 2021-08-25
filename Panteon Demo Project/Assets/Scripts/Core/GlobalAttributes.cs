@@ -9,6 +9,6 @@ public static class GlobalAttributes
 
     public static string GetRacerByRank(int index)
     {
-        return Manager.GetInstance().characters.OrderByDescending(character => character.transform.position.z).ToList()[index].name;
+        return Manager.GetInstance().characters.OrderByDescending(character => character.transform.position.z).ToList()[index].name; //We sort characters by their position and return their rank
     }
 }

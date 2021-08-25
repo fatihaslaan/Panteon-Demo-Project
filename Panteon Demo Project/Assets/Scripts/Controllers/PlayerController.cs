@@ -54,8 +54,8 @@ public class PlayerController : CharacterController
             {
                 GlobalAttributes.percentageOfPaintedArea++; //We filled wall with a tiny spot!
                 paintingWall.paintingSigns.RemoveAt(i); //Remove sign to not to paint it again
-                //Destroy(wall.testObjects[i]); //See signs at real time and destroy them when painting
-                //wall.testObjects.RemoveAt(i);
+                //Destroy(paintingWall.testObjects[i]); //See signs at real time and destroy them when painting
+                //paintingWall.testObjects.RemoveAt(i);
                 break;
             }
         }
@@ -64,8 +64,8 @@ public class PlayerController : CharacterController
 
     Vector3 GetPaintingPos(Vector3 touchedPosition)
     {
-        Vector3 tempVector = new Vector3((paintingWall.bounds.extents.x * 2) / Screen.width, (paintingWall.bounds.extents.y * 2) / (Screen.height / 2), paintingWall.bounds.center.z); //Temporary Vector for connection between screen and wall
-        Vector3 paintingPos = new Vector3((paintingWall.bounds.center.x - paintingWall.bounds.extents.x) + (touchedPosition.x * tempVector.x), (paintingWall.bounds.center.y - paintingWall.bounds.extents.y) + (touchedPosition.y * tempVector.y), tempVector.z - paintingWall.bounds.extents.z * 1.2f);
+        Vector3 tempVector = new Vector3(((paintingWall.bounds.extents.x * 2)) / Screen.width, ((paintingWall.bounds.extents.y * 2)) / (Screen.height / 2), paintingWall.bounds.center.z); //Temporary Vector for connection between screen and wall
+        Vector3 paintingPos = new Vector3(((paintingWall.bounds.center.x - paintingWall.bounds.extents.x)) + (touchedPosition.x * tempVector.x), ((paintingWall.bounds.center.y - paintingWall.bounds.extents.y)) + (touchedPosition.y * tempVector.y), tempVector.z - paintingWall.bounds.extents.z * 1.2f);
         return paintingPos;
     }
 
@@ -80,7 +80,7 @@ public class PlayerController : CharacterController
         GlobalAttributes.playerWon=true;
         Camera.main.GetComponent<Animation>().Play();
         manager.paintingUI.SetActive(true);
-        manager.rankingUI.SetActive(false);
+        manager.rankingUI.SetActive(false); //We no longer need ranks! We won!
         paint = true; //We are painting now!
         transform.position = new Vector3(0, transform.position.y, transform.position.z);
     }

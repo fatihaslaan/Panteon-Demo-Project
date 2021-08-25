@@ -21,8 +21,8 @@ public class BouncyObstacleBehaviour : MonoBehaviour
         {
             GetComponent<BoxCollider>().enabled = false;
             Vector3 dir = c.transform.position - transform.position;
-            dir = new Vector3(dir.x / 4, 0, dir.z > 0 ? dir.z * 2 : dir.z * 12); //Push more to backwards
-            float force = 340f;
+            dir = new Vector3(dir.x / 4, 0, dir.z-0.5f > 0 ? (dir.z-0.5f) * 2 : (dir.z-0.5f) * 4); //Push more to backwards
+            float force = 240f;
             force *= Vector3.Distance(transform.parent.position, c.transform.position); //Push more if character is far
             c.gameObject.GetComponent<Rigidbody>().AddForce(dir * force);
             timerToActivateCollider = 0.2f;

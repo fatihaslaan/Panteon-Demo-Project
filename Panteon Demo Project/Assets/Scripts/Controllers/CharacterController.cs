@@ -10,7 +10,6 @@ public abstract class CharacterController : MonoBehaviour
 
     Animator characterAnimator;
 
-
     // Vector3 startingPosition;
 
     // void Start()
@@ -25,9 +24,9 @@ public abstract class CharacterController : MonoBehaviour
 
     void Update()
     {
-        if (!run&&GlobalAttributes.playerWon)
+        if (!run && GlobalAttributes.playerWon)
             return;
-        if(transform.position.y<-1f)
+        if (transform.position.y < -1f)
             Restart();
         if (!rotating)
         {
@@ -60,23 +59,34 @@ public abstract class CharacterController : MonoBehaviour
             transform.SetParent(c.transform); //To move character with rotating platform
             rotating = true;
         }
-    }
-
-    void OnCollisionExit(Collision c)
-    {
-        if (c.gameObject.tag == "RotatingPlatform")
+        if (c.gameObject.tag == "Platform" && transform.parent != null)
         {
             transform.parent = null;
-            transform.rotation = Quaternion.Euler(Vector3.zero);
-            rotating = false;
+            if (rotating)
+            {
+                transform.parent = null;
+                transform.rotation = Quaternion.Euler(Vector3.zero);
+                rotating = false;
+            }
         }
     }
+
+    // void OnCollisionExit(Collision c) //Bug
+    // {
+    //     if (c.gameObject.tag == "RotatingPlatform")
+    //     {
+    //         transform.parent = null;
+    //         transform.rotation = Quaternion.Euler(Vector3.zero);
+    //         rotating = false;
+    //         Debug.Log("out " + name);
+    //     }
+    // }
 
     public void MoveTo(float x)
     {
         if (!run)
             return;
-        float speedX = Mathf.Clamp(x, -0.03f, 0.03f); //Slow down the character's horizontal speed if it is too fast
+        float speedX = Mathf.Clamp(x, -0.025f, 0.025f); //Slow down the character's horizontal speed if it is too fast
         transform.Translate(new Vector3(speedX, 0, 0));
     }
 

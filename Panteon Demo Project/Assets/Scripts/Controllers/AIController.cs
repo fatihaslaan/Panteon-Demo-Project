@@ -27,7 +27,10 @@ public class AIController : CharacterController
                     MoveTo(0.005f);
                 else if (obstacle.transform.position.x - 0.2f > -0.45f)
                     MoveTo(-0.005f);
-                posChanged = true; //We chaneg our position
+                if (Mathf.Abs(transform.position.x - obstacle.transform.position.x) < 0.4f && transform.position.z < obstacle.transform.position.z)
+                    posChanged = false;
+                else
+                    posChanged = true; //We changed our position
             }
             else if (posChanged) //We are no longer close to an obstacle we can move to middle
             {
@@ -41,10 +44,12 @@ public class AIController : CharacterController
         }
         if (rotating) //We are on top of rotating platform!
         {
-            if (Random.Range(0, 9) < 7) //Someone should fall right?
+            if (transform.position.x > 0.3 || transform.position.x < -0.3) //To prevent stuck
+                return;
+            if (Random.Range(0, 9) < 8) //Someone should fall right?
             {
                 if (transform.position.x > 0)
-                    MoveTo(-0.1f);
+                    MoveTo(-0.01f);
                 else if (transform.position.x < 0)
                     MoveTo(0.01f);
             }
@@ -54,6 +59,7 @@ public class AIController : CharacterController
     public override void Restart()
     {
         transform.position = startingPosition;
+        rotating = false;
     }
 
     public override void FinishLine()

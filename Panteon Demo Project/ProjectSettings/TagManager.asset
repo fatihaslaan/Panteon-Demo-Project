@@ -9,6 +9,7 @@ TagManager:
   - Stick
   - Character
   - Painting Wall
+  - Platform
   layers:
   - Default
   - TransparentFX

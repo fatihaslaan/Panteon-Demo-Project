@@ -6,7 +6,7 @@ public class Manager : MonoBehaviour //To store some objects
 {
     public GameObject spray, paintingWall, paintingUI, rankingUI;
 
-    public List<Material> rotatingPlatformMaterials, sprayMaterials;
+    public List<Material> sprayMaterials;
 
     public List<CharacterController> characters = new List<CharacterController>();
 
