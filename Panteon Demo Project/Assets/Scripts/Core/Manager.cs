@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Manager : MonoBehaviour //To store some objects
 {
-    public GameObject spray,paintingWall,paintingUI;
+    public GameObject spray, paintingWall, paintingUI, rankingUI;
 
-    public List<Material> rotatingPlatformMaterials,sprayMaterials;
+    public List<Material> rotatingPlatformMaterials, sprayMaterials;
 
-    public List<CharacterController> characters;
+    public List<CharacterController> characters = new List<CharacterController>();
+
+    public List<GameObject> obstacles;
 
     Renderer sprayRenderer;
 
@@ -22,10 +25,16 @@ public class Manager : MonoBehaviour //To store some objects
         else
         {
             instance = this;
-            paintingWall=GameObject.FindGameObjectWithTag("Painting Wall");
-            sprayRenderer=spray.GetComponent<Renderer>();
-            ChangeSprayColor();
+            Load();
         }
+    }
+
+    void Load()
+    {
+        paintingWall = GameObject.FindGameObjectWithTag("Painting Wall");
+        sprayRenderer = spray.GetComponent<Renderer>();
+        ChangeSprayColor();
+        obstacles = GameObject.FindGameObjectsWithTag("Obstacle").ToList(); //AI will use it
     }
 
     public static Manager GetInstance()
@@ -35,6 +44,6 @@ public class Manager : MonoBehaviour //To store some objects
 
     public void ChangeSprayColor()
     {
-        sprayRenderer.material=sprayMaterials[GlobalAttributes.currentSprayColorIndex];
+        sprayRenderer.material = sprayMaterials[GlobalAttributes.currentSprayColorIndex];
     }
 }

@@ -5,7 +5,7 @@ public abstract class CharacterController : MonoBehaviour
     [SerializeField]
     float speed;
 
-    bool rotating = false;
+    protected bool rotating = false;
     bool run = true;
 
     Animator characterAnimator;
@@ -25,18 +25,23 @@ public abstract class CharacterController : MonoBehaviour
 
     void Update()
     {
-        if (!run)
+        if (!run&&GlobalAttributes.playerWon)
             return;
-        if (transform.position.x < -0.45f)
-            transform.position = new Vector3(-0.45f, transform.position.y, transform.position.z);
-        else if (transform.position.x > 0.45f)
-            transform.position = new Vector3(0.45f, transform.position.y, transform.position.z); //Dont fall off
+        if(transform.position.y<-1f)
+            Restart();
+        if (!rotating)
+        {
+            if (transform.position.x < -0.45f)
+                transform.position = new Vector3(-0.45f, transform.position.y, transform.position.z);
+            else if (transform.position.x > 0.45f)
+                transform.position = new Vector3(0.45f, transform.position.y, transform.position.z); //Dont fall off
+        }
         transform.Translate(new Vector3(0, 0, speed / 500)); //Moves character all the time
         if (rotating)
             transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
-    void OnTriggerEnter(Collider c) 
+    void OnTriggerEnter(Collider c)
     {
         if (c.gameObject.tag == "Finish")
         {
@@ -69,7 +74,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public void MoveTo(float x)
     {
-        if(!run)
+        if (!run)
             return;
         float speedX = Mathf.Clamp(x, -0.03f, 0.03f); //Slow down the character's horizontal speed if it is too fast
         transform.Translate(new Vector3(speedX, 0, 0));

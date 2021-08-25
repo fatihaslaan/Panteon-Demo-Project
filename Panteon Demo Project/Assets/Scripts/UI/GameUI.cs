@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    public Text percentageOfPaintedArea;
+    public Text percentageOfPaintedArea,txt_1th,txt_2nd,txt_3rd;
 
     PaintingWall paintingWall;
     int divideValueOfSignFrequency; //To calculate % of painted area
@@ -14,9 +14,12 @@ public class GameUI : MonoBehaviour
         divideValueOfSignFrequency= (paintingWall.pointFrequency*paintingWall.pointFrequency)/100;
     }
 
-    void Update() 
+    void LateUpdate() 
     {
         percentageOfPaintedArea.text=(GlobalAttributes.percentageOfPaintedArea/divideValueOfSignFrequency)+"%";
+        txt_1th.text=GlobalAttributes.GetRacerByRank(0);
+        txt_2nd.text=GlobalAttributes.GetRacerByRank(1);
+        txt_3rd.text=GlobalAttributes.GetRacerByRank(2);
     }
     
     public void ChangeColorOfSpray(int sprayIndex)

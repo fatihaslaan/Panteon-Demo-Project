@@ -16,6 +16,7 @@ public class PlayerController : CharacterController
     {
         manager = Manager.GetInstance();
         paintingWall = manager.paintingWall.GetComponent<PaintingWall>();
+        manager.characters.Add(this);
     }
 
     void LateUpdate()
@@ -76,8 +77,10 @@ public class PlayerController : CharacterController
     public override void FinishLine()
     {
         base.FinishLine();
+        GlobalAttributes.playerWon=true;
         Camera.main.GetComponent<Animation>().Play();
         manager.paintingUI.SetActive(true);
+        manager.rankingUI.SetActive(false);
         paint = true; //We are painting now!
         transform.position = new Vector3(0, transform.position.y, transform.position.z);
     }
